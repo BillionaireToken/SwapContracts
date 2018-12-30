@@ -23,10 +23,12 @@ contract XBL_ERC20Wrapper
 contract SwapContrak
 {
 	string eosio_username;
-	mapping(string => uint256) public registered_for_swap_database;
+	mapping(string => uint256) registered_for_swap_database;
 
 	address public swap_address;
 	address public XBLContract_addr;
+	XBL_ERC20Wrapper private ERC20_CALLS;
+
 
 	constructor() public
 	{
@@ -36,7 +38,7 @@ contract SwapContrak
 	}
 	
 
-	function registerSwap(uint256 xbl_amount, string memory eosio_username) public returns (uint256 STATUS_CODE)
+	function registerSwap(uint256 xbl_amount, string memory eosio_username) public returns (int256 STATUS_CODE)
 	{
 		// -1 = allowance mismatch
 		// -2 = balance mismatch
