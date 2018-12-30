@@ -9,14 +9,14 @@
 // 6. These funds are now frozen. The database will then be used by the eosio airdrop/XBL swap contrak.
 
 
-pragma solidity ^0.4.8;
+pragma solidity ^0.5.2;
 
 
 contract XBL_ERC20Wrapper
 {
-    function transferFrom(address from, address to, uint value) returns (bool success);
-    function allowance(address _owner, address _spender) constant returns (uint256 remaining);
-    function balanceOf(address _owner) constant returns (uint256 balance);
+    function transferFrom(address from, address to, uint value) public returns (bool success);
+    function allowance(address _owner, address _spender) public  returns (uint256 remaining);
+    function balanceOf(address _owner) public returns (uint256 balance);
 }
 
 
@@ -28,7 +28,7 @@ contract SwapContrak
 	address public swap_address;
 	address public XBLContract_addr;
 
-	function SwapContrak()
+	constructor() public
 	{
 		swap_address = address(this); /* Own address */
 		XBLContract_addr = 0x49AeC0752E68D0282Db544C677f6BA407BA17ED7;
@@ -36,7 +36,7 @@ contract SwapContrak
 	}
 	
 
-	function registerSwap(uint256 xbl_amount, string eosio_username) returns (uint256 STATUS_CODE)
+	function registerSwap(uint256 xbl_amount, string memory eosio_username) public returns (uint256 STATUS_CODE)
 	{
 		// -1 = allowance mismatch
 		// -2 = balance mismatch
