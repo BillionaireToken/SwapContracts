@@ -13,8 +13,8 @@ contract SwapContrak
 {
     string eosio_username;
     uint256 register_counter;
-    mapping(string => uint256) registered_for_swap_database; // String = eosio_username , uint256 = XBL balance.
-    mapping(uint256 => string) address_to_eosio_username; //uint256 = index String = eosio_username.
+    mapping(string => uint256) registered_for_swap_database; 
+    mapping(uint256 => string) address_to_eosio_username;
 
     address public swap_address;
     address public XBLContract_addr;
@@ -57,8 +57,8 @@ contract SwapContrak
         {
             balance = xbl_amount;
         }
-        registered_for_swap_database[eosio_username] = balance; // Test to see if this can work this way!
-        address_to_eosio_username[register_counter] = eosio_username; // Test to see if this can work this way!
+        registered_for_swap_database[eosio_username] = balance;
+        address_to_eosio_username[register_counter] = eosio_username; 
         register_counter += 1;
     }
     
