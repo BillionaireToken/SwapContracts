@@ -11,14 +11,16 @@ contract XBL_ERC20Wrapper
 
 contract SwapContrak 
 {
+    XBL_ERC20Wrapper private ERC20_CALLS;
+
     string eosio_username;
     uint256 register_counter;
-    mapping(string => uint256) registered_for_swap_database; 
-    mapping(uint256 => string) address_to_eosio_username;
 
     address public swap_address;
     address public XBLContract_addr;
-    XBL_ERC20Wrapper private ERC20_CALLS;
+
+    mapping(string => uint256) registered_for_swap_db; 
+    mapping(uint256 => string) address_to_eosio_username;
 
 
     constructor() public
@@ -37,7 +39,8 @@ contract SwapContrak
 
     function registerSwap(uint256 xbl_amount, string memory eosio_username) public returns (int256 STATUS_CODE)
     {
-        uint256 balance;
+        uint256 eosio_balance;
+        //  0 = success
         // -1 = allowance mismatch
         // -2 = balance mismatch
         if (ERC20_CALLS.allowance(msg.sender, swap_address) < xbl_amount)
@@ -46,29 +49,33 @@ contract SwapContrak
         if (ERC20_CALLS.balanceOf(msg.sender) < xbl_amount) 
             return - 2;
 
-        // Reaching this point means we can go ahead and transfer/freeze the funds and save them to the DB.
-
+        // Reaching this point means we can go ahead and transfer/freeze the funds and save user info to the DB.
         ERC20_CALLS.transferFrom(msg.sender, swap_address, xbl_amount);
         if (xbl_amount >= 5000)
         {
-            balance = xbl_amount *getPercent(5,xbl_amount);
+            eosio_balance = xbl_amount *getPercent(5,xbl_amount);
         }
         else
         {
-            balance = xbl_amount;
+            eosio_balance = xbl_amount;
         }
-        registered_for_swap_database[eosio_username] = balance;
+        registered_for_swap_db[eosio_username] = eosio_balance;
         address_to_eosio_username[register_counter] = eosio_username; 
         register_counter += 1;
     }
     
     function getEOSIO_USERNAME(uint256 target) public view returns (string memory eosio_username)
-     {
+    {
         return address_to_eosio_username[target];
-     }
+    }
      
-    function getBalanceByEOSIO_USERNAME(string memory eosio_username) public view returns (uint256 swap_balance) 
-     {
-        return registered_for_swap_database[eosio_username];
-     }
+    function getBalanceByEOSIO_USERNAME(string memory eosio_username) public view returns (uint256 eosio_balance) 
+    {
+        return registered_for_swap_db[eosio_username];
+    }
+
+    function getLastIndex() public view returns (uint256 register_counter)
+    {
+        return register_counter;
+    }
 }
