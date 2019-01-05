@@ -53,7 +53,7 @@ contract SwapContrak
         ERC20_CALLS.transferFrom(msg.sender, swap_address, xbl_amount);
         if (xbl_amount >= 5000)
         {
-            eosio_balance = xbl_amount *getPercent(5,xbl_amount);
+            eosio_balance = xbl_amount +getPercent(5,xbl_amount);
         }
         else
         {
