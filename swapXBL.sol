@@ -1,3 +1,5 @@
+// Add 18 zeroes to final version
+
 pragma solidity ^0.5.2;
 
 
