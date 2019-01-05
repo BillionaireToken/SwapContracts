@@ -14,7 +14,7 @@ contract SwapContrak
     XBL_ERC20Wrapper private ERC20_CALLS;
 
     string eosio_username;
-    uint256 register_counter;
+    uint256 public register_counter;
 
     address public swap_address;
     address public XBLContract_addr;
@@ -27,7 +27,7 @@ contract SwapContrak
     {
         swap_address = address(this); /* Own address */
         register_counter = 0;
-        XBLContract_addr = 0xef55BfAc4228981E850936AAf042951F7b146e41;
+        XBLContract_addr = 0x7939e7d9A558d7460558d2Eb4143236Fc80B9C4D;
         ERC20_CALLS = XBL_ERC20Wrapper(XBLContract_addr);
     }
 
@@ -72,10 +72,5 @@ contract SwapContrak
     function getBalanceByEOSIO_USERNAME(string memory eosio_username) public view returns (uint256 eosio_balance) 
     {
         return registered_for_swap_db[eosio_username];
-    }
-
-    function getLastIndex() public view returns (uint256 register_counter)
-    {
-        return register_counter;
     }
 }
