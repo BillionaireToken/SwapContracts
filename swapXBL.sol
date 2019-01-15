@@ -27,7 +27,7 @@ contract SwapContrak
     {
         swap_address = address(this); /* Own address */
         register_counter = 0;
-        XBLContract_addr = 0x7939e7d9A558d7460558d2Eb4143236Fc80B9C4D;
+        XBLContract_addr = 0x49AeC0752E68D0282Db544C677f6BA407BA17ED7;
         ERC20_CALLS = XBL_ERC20Wrapper(XBLContract_addr);
     }
 
