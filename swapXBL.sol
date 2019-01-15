@@ -1,5 +1,3 @@
-// Add 18 zeroes to final version
-
 pragma solidity ^0.5.2;
 
 
@@ -53,7 +51,7 @@ contract SwapContrak
 
         // Reaching this point means we can go ahead and transfer/freeze the funds and save user info to the DB.
         ERC20_CALLS.transferFrom(msg.sender, swap_address, xbl_amount);
-        if (xbl_amount >= 5000)
+        if (xbl_amount >= 5000000000000000000000)
         {
             eosio_balance = xbl_amount +getPercent(5,xbl_amount);
         }
